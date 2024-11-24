@@ -8,6 +8,6 @@ class TodoItemsListViewModel @Inject constructor(
     private val todoRepository: TodoItemsRepository,
 ) : ViewModel() {
 
-    val todoItems = todoRepository.getTodoItems()
+//    val todoItems = todoRepository.getTodoItems()
 
 }
