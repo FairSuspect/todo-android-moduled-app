@@ -32,6 +32,8 @@ android {
     }
 }
 dependencies {
+    api(project(":domain"))
+    api(project(":core:data"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
