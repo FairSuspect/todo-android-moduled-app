@@ -2,6 +2,7 @@ package io.fairboi.mytodoapp
 
 import android.app.Application
 import io.fairboi.mytodoapp.di.DaggerAppComponent
+import kotlin.getValue
 
 class TodoApplication : Application() {
     internal val appComponent by lazy {
