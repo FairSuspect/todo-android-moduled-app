@@ -12,12 +12,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import io.fairboi.domain.model.todo.TodoItem
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
+
 import java.util.Locale
+import io.fairboi.domain.model.todo.TodoItem
 
 @Composable
 fun TodoItemTile(
@@ -26,6 +25,7 @@ fun TodoItemTile(
     onClick: () -> Unit = {},
     onCheckedChange: (Boolean) -> Unit = {},
 ) {
+
     ListItem(
         modifier = modifier.clickable(
             onClick = onClick,

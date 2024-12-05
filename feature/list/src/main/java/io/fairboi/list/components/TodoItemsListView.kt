@@ -1,7 +1,9 @@
 package io.fairboi.list.components
 
+import android.Manifest
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresPermission
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,22 +24,29 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import io.fairboi.domain.model.todo.TodoId
 import io.fairboi.domain.model.todo.TodoItem
 
 @Composable
+@RequiresPermission(Manifest.permission.VIBRATE)
 fun TodoItemsListView(
     items: List<TodoItem>,
     onItemClicked: (TodoItem) -> Unit,
     onItemChecked: (TodoItem) -> Unit,
     onItemCreated: (String) -> Unit,
+    onItemRemoved: (itemId: TodoId) -> Unit,
     modifier: Modifier = Modifier
+
 ) {
     LazyColumn(modifier = modifier) {
         items(items.size) {
-            TodoItemTile(
-                todoItem = items[it],
-                onClick = { onItemClicked(items[it]) },
-                onCheckedChange = { checked -> onItemChecked(items[it].copy(done = checked)) }
+            val item = items[it]
+
+            DismissibleTotoItemTile(
+                onRemove = { onItemRemoved(item.id) },
+                todoItem = item,
+                onClick = { onItemClicked(item) },
+                onCheckedChange = { checked -> onItemChecked(item.copy(done = checked)) }
             )
         }
         item {
@@ -89,6 +98,7 @@ private fun TodoItemsListViewPreview() {
             onItemClicked = {},
             onItemChecked = {},
             onItemCreated = {},
+            onItemRemoved = {},
             modifier = Modifier.padding(innerPadding)
         )
 

@@ -1,5 +1,7 @@
 package io.fairboi.list
 
+import android.Manifest
+import androidx.annotation.RequiresPermission
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
@@ -17,6 +19,7 @@ import androidx.compose.ui.Modifier
 import io.fairboi.list.components.TodoItemsListView
 
 @OptIn(ExperimentalMaterial3Api::class)
+@RequiresPermission(Manifest.permission.VIBRATE)
 @Composable
 fun TodoItemsListScreen(
     viewModel: TodoItemsListViewModel,
@@ -55,6 +58,7 @@ fun TodoItemsListScreen(
                     onItemClicked = { viewModel.onItemChecked(it.copy(done = !it.done)) },
                     onItemChecked = { viewModel.onItemChecked(it) },
                     onItemCreated = { viewModel.onTextTodoAdded(it) },
+                    onItemRemoved = { viewModel.onItemRemoved(it) },
                     modifier = modifier.padding(innerPadding)
                 )
             }

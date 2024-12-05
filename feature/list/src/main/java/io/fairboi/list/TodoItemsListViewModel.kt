@@ -2,6 +2,7 @@ package io.fairboi.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.fairboi.domain.model.todo.TodoId
 import io.fairboi.domain.model.todo.TodoItem
 import jakarta.inject.Inject
 import io.fairboi.domain.repositories.TodoItemsRepository
@@ -57,6 +58,13 @@ class TodoItemsListViewModel @Inject constructor(
         }
 
     }
+
+    internal fun onItemRemoved(itemId: TodoId) {
+        viewModelScope.launch {
+            todoRepository.deleteItemById(itemId)
+        }
+    }
+
 
 //    val todoItems = todoRepository.getTodoItems()
 
