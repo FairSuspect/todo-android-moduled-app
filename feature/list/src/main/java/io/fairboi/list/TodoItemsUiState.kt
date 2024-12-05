@@ -3,17 +3,22 @@ package io.fairboi.list
 import io.fairboi.domain.model.todo.TodoItem
 
 internal data class TodoItemsUiState(
-    val todoItemsState: TodoItemsState
+    val listState: ListState
 ){
-    sealed class TodoItemsState{
-        data object Loading : TodoItemsState()
-        data class Loaded(val items: List<TodoItem>) : TodoItemsState()
-        data class Error(val message: String) : TodoItemsState()
+    sealed class ListState{
+        data object Loading : ListState()
+        data class Loaded(val items: List<TodoItem>) : ListState()
+        data class Error(val message: String) : ListState()
     }
 
     companion object{
-        val Initial = TodoItemsUiState(TodoItemsState.Loading)
+        val Initial = TodoItemsUiState(ListState.Loading)
     }
+
+//    enum class FilterState(val filter: (TodoItem) -> Boolean) {
+//        ALL({ true }),
+//        NOT_COMPLETED({ !it.done })
+//    }
 }
 
 

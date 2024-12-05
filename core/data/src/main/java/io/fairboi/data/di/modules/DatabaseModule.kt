@@ -4,10 +4,7 @@ import dagger.Module
 import dagger.Provides
 import io.fairboi.data.di.DataComponent
 import io.fairboi.db.di.DatabaseFactory
-import jakarta.inject.Qualifier
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+
 
 
 /// В этом файле описаны зависимости базы данных

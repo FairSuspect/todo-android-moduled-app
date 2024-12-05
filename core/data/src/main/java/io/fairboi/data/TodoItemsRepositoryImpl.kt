@@ -1,5 +1,6 @@
 package io.fairboi.data
 
+import io.fairboi.data.di.DataScope
 import io.fairboi.data.di.modules.SingleThreadBackgroundDispatcher
 import io.fairboi.db.TodoLocalDataSource
 import io.fairboi.db.toDbItem
@@ -14,6 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+@DataScope
 class TodoItemsRepositoryImpl @Inject constructor(
     private val localDataSource: TodoLocalDataSource,
 

@@ -25,6 +25,9 @@ internal fun NavGraph(
             exitTransition = AnimatedTransitions.mainScreenExit(animationDuration),
         ) {
             TodoItemsListScreen(
+                viewModel = remember {
+                    appComponent.listFeatureComponent().listViewModel
+                },
                 toSettingsScreen = {
                     navController.navigate(Screen.Settings.route)
                 }

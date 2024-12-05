@@ -3,8 +3,14 @@ package io.fairboi.mytodoapp.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import io.fairboi.data.di.DataDependencies
+import io.fairboi.data.di.DataScope
 import io.fairboi.domain.repositories.SettingsRepository
+import io.fairboi.list.di.ListFeatureDependencies
 import io.fairboi.mytodoapp.TodoApplication
+import io.fairboi.mytodoapp.di.modules.DataModule
+import io.fairboi.mytodoapp.di.modules.ListFeatureModule
+import io.fairboi.mytodoapp.di.modules.SettingsFeatureModule
 import io.fairboi.mytodoapp.di.modules.UtilsModule
 import io.fairboi.settings.di.SettingsFeatureDependencies
 import io.fairboi.utils.di.UtilsDependencies
@@ -18,12 +24,18 @@ annotation class AppScope
 @Component(
     modules = [
         UtilsModule::class,
+        DataModule::class,
+        SettingsFeatureModule::class,
+        ListFeatureModule::class,
     ]
 )
 @AppSettingsScope
 @AppScope
+@DataScope
 internal interface AppComponent :
     SettingsFeatureDependencies,
+    ListFeatureDependencies,
+    DataDependencies,
     UtilsDependencies {
     @Component.Factory
     interface Factory {
@@ -33,6 +45,8 @@ internal interface AppComponent :
     }
 
     fun inject(application: TodoApplication)
+
+    fun listFeatureComponent(): TodoListFeatureComponent
 
     fun settingsFeatureComponent(): SettingsFeatureComponent
 

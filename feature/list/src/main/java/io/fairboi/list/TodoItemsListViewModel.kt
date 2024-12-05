@@ -13,27 +13,31 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-internal class TodoItemsListViewModel @Inject constructor(
+class TodoItemsListViewModel @Inject constructor(
     private val todoRepository: TodoItemsRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(TodoItemsUiState.Initial)
-    val uiState: StateFlow<TodoItemsUiState> = _uiState.asStateFlow()
+    internal val uiState: StateFlow<TodoItemsUiState> = _uiState.asStateFlow()
 
     private fun getTodoItems() {
         viewModelScope.launch {
             todoRepository.getItemsFlow()
                 .map {
-                    TodoItemsUiState.TodoItemsState.Loaded(it)
+                    TodoItemsUiState.ListState.Loaded(it)
                 }.catch {
-                    TodoItemsUiState.TodoItemsState.Error(it.message ?: "Unknown error")
+                    TodoItemsUiState.ListState.Error(it.message ?: "Unknown error")
                 }.collect { todoItemsState ->
                     _uiState.update {
                         it.copy(
-                            todoItemsState = todoItemsState
+                            listState = todoItemsState
                         )
                     }
                 }
         }
+    }
+
+    init {
+        getTodoItems()
     }
 
     private  fun addTodoItem( todoItem: TodoItem) {
