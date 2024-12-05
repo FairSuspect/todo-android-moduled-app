@@ -51,6 +51,13 @@ class TodoItemsListViewModel @Inject constructor(
         addTodoItem(todoItem)
     }
 
+    internal fun onItemChecked(todoItem: TodoItem) {
+        viewModelScope.launch {
+            todoRepository.updateItem(todoItem)
+        }
+
+    }
+
 //    val todoItems = todoRepository.getTodoItems()
 
 }

@@ -12,15 +12,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import io.fairboi.list.components.TodoItemsListView
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
- fun TodoItemsListScreen(
+fun TodoItemsListScreen(
     viewModel: TodoItemsListViewModel,
-    modifier: Modifier = Modifier, toSettingsScreen: () -> Unit) {
+    modifier: Modifier = Modifier, toSettingsScreen: () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -32,25 +33,27 @@ import io.fairboi.list.components.TodoItemsListView
                 }
             )
         }
-    ) {innerPadding ->
+    ) { innerPadding ->
         val uiState by viewModel.uiState.collectAsState()
 
 
         Text("Здесь будет список задач")
 
-        when(uiState.listState){
+        when (uiState.listState) {
             is TodoItemsUiState.ListState.Error -> {
                 Text((uiState.listState as TodoItemsUiState.ListState.Error).message)
             }
+
             is TodoItemsUiState.ListState.Loading -> {
                 CircularProgressIndicator(modifier = modifier.padding(innerPadding))
             }
+
             is TodoItemsUiState.ListState.Loaded -> {
                 val items = (uiState.listState as TodoItemsUiState.ListState.Loaded).items
                 TodoItemsListView(
-                    items = items ,
-                    onItemClicked = {},
-                    onItemChecked = {},
+                    items = items,
+                    onItemClicked = { viewModel.onItemChecked(it.copy(done = !it.done)) },
+                    onItemChecked = { viewModel.onItemChecked(it) },
                     onItemCreated = { viewModel.onTextTodoAdded(it) },
                     modifier = modifier.padding(innerPadding)
                 )
