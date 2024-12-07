@@ -7,6 +7,8 @@ import androidx.annotation.RequiresPermission
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -35,10 +37,15 @@ fun TodoItemsListView(
     onItemChecked: (TodoItem) -> Unit,
     onItemCreated: (String) -> Unit,
     onItemRemoved: (itemId: TodoId) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    scrollState: LazyListState = rememberLazyListState(),
 
-) {
-    LazyColumn(modifier = modifier) {
+    ) {
+
+    LazyColumn(
+        modifier = modifier,
+        state = scrollState,
+    ) {
         items(items.size) {
             val item = items[it]
 
@@ -61,7 +68,7 @@ fun TodoItemCreator(onItemCreated: (String) -> Unit) {
     ListItem(headlineContent = {
         TextField(
             value = text,
-            onValueChange = { text = it   },
+            onValueChange = { text = it },
             label = { Text("Add new task") },
             placeholder = { Text("Task name") },
             singleLine = true,
@@ -84,6 +91,7 @@ fun TodoItemCreator(onItemCreated: (String) -> Unit) {
 
 
 @RequiresApi(Build.VERSION_CODES.O)
+@RequiresPermission(Manifest.permission.VIBRATE)
 @Preview
 @Composable
 private fun TodoItemsListViewPreview() {
