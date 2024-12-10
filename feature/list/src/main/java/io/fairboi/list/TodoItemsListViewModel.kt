@@ -97,8 +97,9 @@ class TodoItemsListViewModel @Inject constructor(
         }
     }
 
-
-//    val todoItems = todoRepository.getTodoItems()
-
+    fun addTodoFromText(text: String)  {
+        val todoItem = TodoItem.fromText(text)
+        addTodoItem(todoItem)
+    }
 }
 

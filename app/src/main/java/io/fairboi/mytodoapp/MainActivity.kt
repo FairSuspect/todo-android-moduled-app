@@ -1,7 +1,7 @@
 package io.fairboi.mytodoapp
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -16,9 +16,22 @@ import io.fairboi.mytodoapp.ui.theme.MyTodoAppTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val appComponent = (application as TodoApplication).appComponent
+
+        // Пока будет такой вариант, в будущем добавлю фичу редактирования и
+        // по такому интенту будет открываться полноценное редактирование, чтобы пользователь
+        // мог отредактировать текст задачи.
+        if (intent?.action == Intent.ACTION_SEND && intent?.type == "text/plain") {
+            val sharedText = intent?.getStringExtra(Intent.EXTRA_TEXT)
+            if (sharedText != null) {
+                // Создание задачи из sharedText
+                appComponent.listFeatureComponent().listViewModel.addTodoFromText(sharedText)
+            }
+        }
+
         enableEdgeToEdge()
         setContent {
-            TodoApp((application as TodoApplication).appComponent)
+            TodoApp(appComponent)
         }
     }
 }
@@ -32,7 +45,6 @@ internal fun TodoApp(
         appComponent.settingsRepository().getSettings().collectAsState()
 
 
-    Log.d("TodoApp", "settings: $settings")
      MyTodoAppTheme(
        themeSettings = settings.theme
     ) {
