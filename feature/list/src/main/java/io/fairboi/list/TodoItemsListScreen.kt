@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import io.fairboi.domain.model.todo.TodoId
 import io.fairboi.list.components.TodoItemsListView
 import io.fairboi.list.components.TodosAppBar
 
@@ -21,6 +22,8 @@ import io.fairboi.list.components.TodosAppBar
 @Composable
 fun TodoItemsListScreen(
     viewModel: TodoItemsListViewModel,
+    toDetailsScreen: (TodoId? ) -> Unit,
+
     modifier: Modifier = Modifier, toSettingsScreen: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -49,7 +52,7 @@ fun TodoItemsListScreen(
                 val items = (uiState.listState as TodoItemsUiState.ListState.Loaded).items
                 TodoItemsListView(
                     items = items,
-                    onItemClicked = { viewModel.onItemChecked(it.copy(done = !it.done)) },
+                    onItemClicked = { toDetailsScreen(it.id) },
                     onItemChecked = { viewModel.onItemChecked(it) },
                     onItemCreated = { viewModel.onTextTodoAdded(it) },
                     onItemRemoved = { viewModel.onItemRemoved(it) },

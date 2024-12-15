@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="todo_item_text_label">What\'s need to be done</string>
+    <string name="importance_label">Priority</string>
+    <string name="importance_low">Low</string>
+    <string name="importance_basic">Basic</string>
+    <string name="importance_high">High</string>
+    <string name="deadline">Deadline</string>
+</resources>

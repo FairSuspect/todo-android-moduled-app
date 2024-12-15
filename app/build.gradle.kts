@@ -16,6 +16,7 @@ dependencies {
 
     api(project(":feature:settings"))
     api(project(":feature:list"))
+    api(project(":feature:details"))
 
 
     implementation(libs.androidx.core.ktx)

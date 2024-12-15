@@ -5,6 +5,7 @@ import dagger.BindsInstance
 import dagger.Component
 import io.fairboi.data.di.DataDependencies
 import io.fairboi.data.di.DataScope
+import io.fairboi.details.di.DetailsFeatureDependencies
 import io.fairboi.domain.repositories.SettingsRepository
 import io.fairboi.list.di.ListFeatureDependencies
 import io.fairboi.mytodoapp.TodoApplication
@@ -36,7 +37,9 @@ internal interface AppComponent :
     SettingsFeatureDependencies,
     ListFeatureDependencies,
     DataDependencies,
-    UtilsDependencies {
+    UtilsDependencies,
+    DetailsFeatureDependencies
+{
     @Component.Factory
     interface Factory {
         fun create(
@@ -47,6 +50,8 @@ internal interface AppComponent :
     fun inject(application: TodoApplication)
 
     fun listFeatureComponent(): TodoListFeatureComponent
+
+    fun detailsFeatureComponent(): DetailsFeatureComponent
 
     fun settingsFeatureComponent(): SettingsFeatureComponent
 

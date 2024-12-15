@@ -29,6 +29,9 @@ data class TodoItem(
         )
         return todo
     }
+        fun blank() : TodoItem {
+            return fromText("")
+        }
 
     }
 }
