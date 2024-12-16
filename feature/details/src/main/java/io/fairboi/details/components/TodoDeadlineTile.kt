@@ -23,11 +23,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import io.fairboi.details.R
+import io.fairboi.ui.previews.DefaultPreview
+import io.fairboi.ui.previews.LanguagePreview
+import io.fairboi.ui.previews.LayoutDirectionPreview
+import io.fairboi.ui.previews.ThemePreview
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -126,9 +129,12 @@ fun TodoDeadLineTile(
 
 }
 
-@Preview
+@DefaultPreview
+@ThemePreview
+@LanguagePreview
+@LayoutDirectionPreview
 @Composable
-private fun TodoImportance(
+private fun TodoDeadlineTilePreview(
     @PreviewParameter(TodoDeadlineProvider::class) deadline: LocalDateTime?
 ) {
     MaterialTheme {
@@ -150,15 +156,6 @@ class TodoDeadlineProvider : PreviewParameterProvider<LocalDateTime?> {
     override val values: Sequence<LocalDateTime?> = sequenceOf(
         null,
         LocalDateTime.now(),
-        LocalDateTime.now().plusDays(1),
-        LocalDateTime.of(
-            2023,
-            1,
-            1,
-            1,
-            1
-        )
-//        TodoImportance.HIGH
     )
 
 }

@@ -6,4 +6,6 @@
     <string name="importance_basic">Basic</string>
     <string name="importance_high">High</string>
     <string name="deadline">Deadline</string>
+    <string name="delete">Delete</string>
+    <string name="delete_task">Delete task</string>
 </resources>

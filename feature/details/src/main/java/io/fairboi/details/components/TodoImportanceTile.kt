@@ -10,12 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import io.fairboi.details.R
 import io.fairboi.domain.model.todo.TodoImportance
+import io.fairboi.ui.previews.DefaultPreview
+import io.fairboi.ui.previews.LanguagePreview
+import io.fairboi.ui.previews.LayoutDirectionPreview
+import io.fairboi.ui.previews.ThemePreview
 
 @Composable
 fun TodoImportanceTile(
@@ -55,9 +58,12 @@ private fun ImportanceValueText(importance: TodoImportance) {
     )
 }
 
-@Preview
+@DefaultPreview
+@LanguagePreview
+@ThemePreview
+@LayoutDirectionPreview
 @Composable
-private fun TodoImportance(
+private fun TodoImportanceTilePreview(
     @PreviewParameter(TodoImportanceProvider::class) importance: TodoImportance
 ) {
     MaterialTheme {

@@ -13,6 +13,7 @@ android {
 dependencies {
     api(project(":domain"))
     api(project(":core:data"))
+    api(project(":core:ui"))
 
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.core.ktx)
