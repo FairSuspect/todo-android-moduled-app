@@ -1,10 +1,6 @@
 package io.fairboi.details.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ListItem
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,10 +8,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.dp
 import io.fairboi.details.R
 import io.fairboi.domain.model.todo.TodoImportance
+import io.fairboi.theme.custom.MyAppTheme
 import io.fairboi.ui.previews.DefaultPreview
+import io.fairboi.ui.previews.ItemPreviewTemplate
 import io.fairboi.ui.previews.LanguagePreview
 import io.fairboi.ui.previews.LayoutDirectionPreview
 import io.fairboi.ui.previews.ThemePreview
@@ -47,9 +44,9 @@ private fun ImportanceValueText(importance: TodoImportance) {
     }
 
     val color = when (importance) {
-        TodoImportance.HIGH -> MaterialTheme.colorScheme.error
-        TodoImportance.LOW -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-        else -> MaterialTheme.colorScheme.onSurface
+        TodoImportance.HIGH -> MyAppTheme.colors.red
+        TodoImportance.LOW -> MyAppTheme.colors.tertiary
+        else -> MyAppTheme.colors.primary
     }
 
     Text(
@@ -66,19 +63,12 @@ private fun ImportanceValueText(importance: TodoImportance) {
 private fun TodoImportanceTilePreview(
     @PreviewParameter(TodoImportanceProvider::class) importance: TodoImportance
 ) {
-    MaterialTheme {
-        Box(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.surface)
-                .padding(8.dp)
-        ) {
-
-            TodoImportanceTile(
-                importance = importance,
-
-                )
-        }
+    ItemPreviewTemplate {
+        TodoImportanceTile(
+            importance = importance,
+        )
     }
+
 }
 
 class TodoImportanceProvider : PreviewParameterProvider<TodoImportance> {

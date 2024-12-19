@@ -1,33 +1,24 @@
 package io.fairboi.list.components
 
 import android.Manifest
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import io.fairboi.domain.model.todo.TodoId
 import io.fairboi.domain.model.todo.TodoItem
+import io.fairboi.theme.custom.MyAppTheme
+import io.fairboi.ui.previews.DefaultPreview
+import io.fairboi.ui.previews.LayoutDirectionPreview
+import io.fairboi.ui.previews.ScreenPreviewTemplate
+import io.fairboi.ui.previews.ThemePreview
+import io.fairboi.ui.previews.TodoItemPreviewParameterProvider
 
 @Composable
 @RequiresPermission(Manifest.permission.VIBRATE)
@@ -41,9 +32,15 @@ fun TodoItemsListView(
     scrollState: LazyListState = rememberLazyListState(),
 
     ) {
-
+    val shape = RoundedCornerShape(MyAppTheme.dimensions.cardCornersRadius)
+    val backgroundColor = MyAppTheme.colors.secondaryBack
+// Карточка с тайлами текстом чекбоксов, закруглённая по углам
     LazyColumn(
-        modifier = modifier,
+        modifier = modifier
+            .padding(8.dp)
+//            .border(shape = shape, border = BorderStroke(1.dp, Color.Transparent))
+            .background(color = backgroundColor, shape = shape)
+        ,
         state = scrollState,
     ) {
         items(items.size) {
@@ -53,62 +50,42 @@ fun TodoItemsListView(
                 onRemove = { onItemRemoved(item.id) },
                 todoItem = item,
                 onClick = { onItemClicked(item) },
-                onCheckedChange = { checked -> onItemChecked(item.copy(done = checked)) }
+                onCheckedChange = { checked -> onItemChecked(item.copy(done = checked)) },
+                modifier = Modifier.background(backgroundColor)
+
             )
         }
         item {
-            TodoItemCreator(onItemCreated = onItemCreated)
+            TodoItemCreatorTextField(
+                onItemCreated = onItemCreated,
+                modifier = Modifier
+                    .background(backgroundColor)
+            )
         }
     }
 }
 
-@Composable
-fun TodoItemCreator(onItemCreated: (String) -> Unit) {
-    var text by remember { mutableStateOf("") }
-    ListItem(headlineContent = {
-        TextField(
-            value = text,
-            onValueChange = { text = it },
-            label = { Text("Add new task") },
-            placeholder = { Text("Task name") },
-            singleLine = true,
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    onItemCreated(text)
-                    text = ""
-                }
-            ),
-            keyboardOptions = KeyboardOptions.Default.copy(
-                imeAction = ImeAction.Done
-            ),
-            trailingIcon = {
-                Icon(Icons.Filled.Add, contentDescription = "Add")
-            },
-            modifier = Modifier.fillMaxWidth()
-        )
-    })
-}
 
-
-@RequiresApi(Build.VERSION_CODES.O)
 @RequiresPermission(Manifest.permission.VIBRATE)
-@Preview
+@DefaultPreview
+@ThemePreview
+@LayoutDirectionPreview
 @Composable
-private fun TodoItemsListViewPreview() {
-    // Генерируем 10 задач из текста
-    val items = List(10) {
-        TodoItem.fromText("Task $it").copy(done = it % 2 == 0)
-    }
-    Scaffold { innerPadding ->
+private fun TodoItemsListViewPreview(
 
+) {
+
+
+    ScreenPreviewTemplate {
         TodoItemsListView(
-            items = items,
+            items = TodoItemPreviewParameterProvider().values.toList(),
             onItemClicked = {},
             onItemChecked = {},
             onItemCreated = {},
             onItemRemoved = {},
-            modifier = Modifier.padding(innerPadding)
-        )
 
+            )
     }
+
+
 }

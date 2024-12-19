@@ -5,10 +5,9 @@ plugins {
 }
 
 android {
-    namespace = "io.fairboi.ui"
+    namespace = "io.fairboi.theme"
 }
 
 dependencies {
     api(project(":domain"))
-    api(project(":core:theme"))
 }

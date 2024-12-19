@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -27,6 +26,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import io.fairboi.details.R
 import io.fairboi.domain.model.todo.TodoItem
+import io.fairboi.theme.custom.MyAppTheme
 
 @Composable
 fun TodoItemDetailsBody(
@@ -43,10 +43,10 @@ fun TodoItemDetailsBody(
     ) {
         item {
             Column {
-                val containerColor = MaterialTheme.colorScheme.surface
-                val textColor = MaterialTheme.colorScheme.onSurface
-                val placeFolderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-                val cursorColor = MaterialTheme.colorScheme.primary
+                val containerColor = MyAppTheme.colors.secondaryBack
+                val textColor = MyAppTheme.colors.primary
+                val placeFolderColor = MyAppTheme.colors.tertiary
+                val cursorColor = MyAppTheme.colors.primary
                 val indicatorColor = Color.Transparent
 
                 TextField(
@@ -86,7 +86,7 @@ fun TodoItemDetailsBody(
                     placeholder = {
                         Text(
                             stringResource(R.string.todo_item_text_label),
-                            style = MaterialTheme.typography.bodyMedium,
+                            style = MyAppTheme.typography.body
 
                             )
                     },

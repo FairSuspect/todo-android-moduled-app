@@ -2,11 +2,12 @@ package io.fairboi.ui.previews
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.content.res.Configuration.UI_MODE_TYPE_NORMAL
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 
 @Preview(
-    name = "Default  Mode",
+    name = "Default Mode",
     showBackground = true,
     uiMode = UI_MODE_NIGHT_NO,
     locale = "en",
@@ -16,8 +17,7 @@ annotation class DefaultPreview
 
 @Preview(
     name = "Dark Mode",
-    showBackground = true,
-    uiMode = UI_MODE_NIGHT_YES,
+    uiMode =  UI_MODE_NIGHT_YES or UI_MODE_TYPE_NORMAL,
 )
 annotation class ThemePreview
 

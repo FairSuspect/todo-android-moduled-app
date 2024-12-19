@@ -2,6 +2,7 @@ package io.fairboi.list
 
 import android.Manifest
 import androidx.annotation.RequiresPermission
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
@@ -15,6 +16,7 @@ import androidx.compose.ui.Modifier
 import io.fairboi.domain.model.todo.TodoId
 import io.fairboi.list.components.TodoItemsListView
 import io.fairboi.list.components.TodosAppBar
+import io.fairboi.theme.custom.MyAppTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -22,7 +24,7 @@ import io.fairboi.list.components.TodosAppBar
 @Composable
 fun TodoItemsListScreen(
     viewModel: TodoItemsListViewModel,
-    toDetailsScreen: (TodoId? ) -> Unit,
+    toDetailsScreen: (TodoId?) -> Unit,
 
     modifier: Modifier = Modifier, toSettingsScreen: () -> Unit
 ) {
@@ -35,9 +37,11 @@ fun TodoItemsListScreen(
                 viewModel = viewModel,
                 toSettingsScreen = toSettingsScreen,
                 scrollState = scrollState,
+                modifier = Modifier.background(MyAppTheme.colors.primaryBack)
             )
-        }
-    ) { innerPadding ->
+        },
+        containerColor = MyAppTheme.colors.primaryBack,
+        ) { innerPadding ->
 
         when (uiState.listState) {
             is TodoItemsUiState.ListState.Error -> {
@@ -63,3 +67,5 @@ fun TodoItemsListScreen(
         }
     }
 }
+
+
