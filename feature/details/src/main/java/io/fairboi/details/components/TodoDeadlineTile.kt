@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Switch
@@ -22,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import io.fairboi.details.R
+import io.fairboi.theme.custom.MyAppTheme
 import io.fairboi.ui.previews.DefaultPreview
 import io.fairboi.ui.previews.ItemPreviewTemplate
 import io.fairboi.ui.previews.LanguagePreview
@@ -60,30 +62,20 @@ fun TodoDeadLineTile(
     val hasDeadline = deadline != null
 
     if (showDatePicker) {
-        DatePickerDialog(
-            onDismissRequest = { showDatePicker = false },
-            confirmButton = {
-                TextButton(onClick = {
-                    showDatePicker = false
-                    deadline = datePickerState.selectedDateMillis?.let { millis ->
-                        LocalDateTime.ofInstant(
-                            Instant.ofEpochMilli(millis),
-                            TimeZone.getDefault().toZoneId()
-                        )
-                    }
-                    onChanged(deadline)
-                }) {
-                    Text("OK")
+        MyDatePickerDialog(
+            datePickerState = datePickerState,
+            onDismiss = { showDatePicker = false },
+            onConfirm = {
+                showDatePicker = false
+                deadline = datePickerState.selectedDateMillis?.let { millis ->
+                    LocalDateTime.ofInstant(
+                        Instant.ofEpochMilli(millis),
+                        TimeZone.getDefault().toZoneId()
+                    )
                 }
-            },
-            dismissButton = {
-                TextButton(onClick = { showDatePicker = false }) {
-                    Text("Cancel")
-                }
+                onChanged(deadline)
             }
-        ) {
-            DatePicker(state = datePickerState)
-        }
+        )
 
     }
     ListItem(
@@ -123,6 +115,56 @@ fun TodoDeadLineTile(
     )
 
 
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun MyDatePickerDialog(
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit,
+    datePickerState: DatePickerState,
+) {
+    DatePickerMaterialTheme(
+        darkTheme = MyAppTheme.colors.isDark
+    )
+    {
+        DatePickerDialog(
+            onDismissRequest = onDismiss,
+            confirmButton = {
+                TextButton(onClick = onConfirm) {
+                    Text("OK")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = onDismiss) {
+                    Text("Cancel")
+                }
+            },
+
+            )
+        {
+            DatePicker(state = datePickerState)
+        }
+
+
+    }
+
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@DefaultPreview
+@ThemePreview
+@LanguagePreview
+@Composable
+private fun MyDatePickerDialogPreview() {
+
+    ItemPreviewTemplate {
+        MyDatePickerDialog(
+            onConfirm = {},
+            onDismiss = {},
+            datePickerState = rememberDatePickerState()
+        )
+    }
 }
 
 @DefaultPreview
