@@ -18,7 +18,7 @@ import io.fairboi.theme.custom.MyTodoAppTheme
 @Composable
 fun ItemPreviewTemplate(content: @Composable () -> Unit) {
     MyTodoAppTheme(
-        theme = ThemeSettings.Dark
+        theme = ThemeSettings.System
     ) {
         Box(
             modifier = Modifier

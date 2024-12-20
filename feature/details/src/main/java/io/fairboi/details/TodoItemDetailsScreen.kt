@@ -1,5 +1,6 @@
 package io.fairboi.details
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,14 +17,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import io.fairboi.details.components.DetailedTopBar
 import io.fairboi.details.components.TodoItemDetailsBody
 import io.fairboi.domain.model.todo.TodoId
 import io.fairboi.domain.model.todo.TodoItem
+import io.fairboi.ui.previews.DefaultPreview
+import io.fairboi.ui.previews.ScreenPreviewTemplate
+import io.fairboi.ui.previews.ThemePreview
 import java.time.Instant
 import java.time.LocalDateTime
 
@@ -32,10 +36,11 @@ fun TodoItemDetailsScreen(
     viewModel: TodoDetailsViewModel,
     todoId: TodoId?,
     modifier: Modifier = Modifier,
+    onBack: () -> Unit = {}
 ) {
     val uiState = viewModel.uiState.collectAsState()
 
-
+    val context = LocalContext.current
     TodoDetailsContent(
         uiState = uiState.value,
         onTryAgain = {
@@ -43,6 +48,18 @@ fun TodoItemDetailsScreen(
         },
         onEdit = {
             viewModel.edit(it)
+        },
+        onSave = {
+            viewModel.save(it)
+        },
+        onBack = onBack,
+        onDelete = {
+            val todoItem = (uiState.value as TodoDetailsUiState.Loaded).item
+            viewModel.delete(todoItem)
+            onBack()
+            // Show success snackbar
+            val message = "Task deleted"
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         },
         modifier = modifier
     )
@@ -56,12 +73,26 @@ internal fun TodoDetailsContent(
     modifier: Modifier = Modifier,
     onTryAgain: () -> Unit = {},
     onEdit: (TodoItem) -> Unit = {},
+    onBack: () -> Unit = {},
+    onSave: (todoItem: TodoItem) -> Unit = {},
+    onDelete: () -> Unit = {},
 ) {
+    val context = LocalContext.current
+
     Scaffold(
         topBar = {
             DetailedTopBar(
-                onBack = {},
-                onSave = {},
+                onBack = onBack,
+                onSave = {
+                    if (uiState is TodoDetailsUiState.Loaded) {
+                        onSave(uiState.item)
+                        onBack()
+                        // Show success snackbar
+                        val message = "Task saved"
+                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+
+                    }
+                },
                 modifier = modifier
             )
         }
@@ -92,6 +123,7 @@ internal fun TodoDetailsContent(
                     onEdit = {
                         onEdit(it)
                     },
+                    onDelete = onDelete,
                     modifier = modifier
                         .padding(innerPadding)
                 )
@@ -104,7 +136,9 @@ internal fun TodoDetailsContent(
                         .fillMaxSize()
                         .padding(innerPadding)
                 ) {
-                    Column {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
 
                         Text(
                             state.message,
@@ -152,20 +186,20 @@ private class TodoDetailsUiStatePreviewProvider : PreviewParameterProvider<TodoD
     )
 }
 
-@Preview
+@DefaultPreview
+@ThemePreview
 @Composable
 private fun EditItemScreenPreview(
     @PreviewParameter(TodoDetailsUiStatePreviewProvider::class) uiState: TodoDetailsUiState
 ) {
-    Scaffold {
+    ScreenPreviewTemplate {
         var state by remember {
             mutableStateOf(
                 uiState
             )
         }
         TodoDetailsContent(
-            uiState = state,
-            modifier = Modifier.padding(it)
+            uiState = state
         )
     }
 

@@ -1,6 +1,8 @@
 package io.fairboi.details.components
 
+import androidx.compose.foundation.background
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,11 +28,17 @@ fun TodoImportanceTile(
     ListItem(
         modifier = modifier,
         headlineContent = {
-            Text(context.getString(R.string.importance_label))
+            Text(context.getString(R.string.importance_label),
+                color = MyAppTheme.colors.primary,
+                )
         },
         supportingContent = {
             ImportanceValueText(importance = importance)
-        }
+        },
+        colors = ListItemDefaults.colors(
+            containerColor = MyAppTheme.colors.primaryBack,
+
+        )
     )
 
 }

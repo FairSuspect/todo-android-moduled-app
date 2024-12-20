@@ -1,5 +1,6 @@
 package io.fairboi.details
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
@@ -25,10 +26,11 @@ constructor(
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
         _uiState.update { TodoDetailsUiState.Error(exception.message ?: "Unknown error") }
     }
+
     init {
 
 
-            getTodoItem(todoId)
+        getTodoItem(todoId)
 
     }
 
@@ -76,7 +78,40 @@ constructor(
         }
     }
 
-    fun tryAgain(todoId: TodoId?){
+    fun save(todoItem: TodoItem) {
+        viewModelScope.launch {
+            _uiState.update {
+                TodoDetailsUiState.Loading
+            }
+            try {
+                todoRepository.updateItem(todoItem)
+            } catch (e: Exception) {
+                Log.e("TodoDetailsViewModel", "Error saving todo item", e)
+                _uiState.update {
+                    TodoDetailsUiState.Loaded(todoItem)
+                }
+            }
+        }
+
+    }
+
+    fun delete(todoItem: TodoItem) {
+        viewModelScope.launch {
+            _uiState.update {
+                TodoDetailsUiState.Loading
+            }
+            try {
+                todoRepository.deleteItemById(todoItem.id)
+            } catch (e: Exception) {
+                Log.e("TodoDetailsViewModel", "Error deleting todo item", e)
+                _uiState.update {
+                    TodoDetailsUiState.Loaded(todoItem)
+                }
+            }
+        }
+    }
+
+    fun tryAgain(todoId: TodoId?) {
         getTodoItem(todoId)
 
     }

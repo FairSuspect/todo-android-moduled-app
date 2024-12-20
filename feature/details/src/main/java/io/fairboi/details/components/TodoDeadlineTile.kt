@@ -9,7 +9,10 @@ import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchColors
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
@@ -83,7 +86,6 @@ fun TodoDeadLineTile(
             .fillMaxWidth()
             .clickable(
                 onClick = {
-                    Log.d("TodoDeadLineTile", "Switch clicked")
                     val newChecked = !hasDeadline
                     onSwitchChanged(newChecked)
                 }
@@ -97,7 +99,9 @@ fun TodoDeadLineTile(
                     val formattedDateline =
                         deadline!!.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))
                     Text(
-                        text = formattedDateline
+                        text = formattedDateline,
+                        style = MyAppTheme.typography.body,
+                        color = MyAppTheme.colors.blue
                     )
                 }
             }
@@ -108,10 +112,22 @@ fun TodoDeadLineTile(
                 onCheckedChange = { checked ->
                     onSwitchChanged(checked)
                 },
+                colors = SwitchDefaults.colors(
+                    uncheckedThumbColor = MyAppTheme.colors.elevated,
+                    uncheckedTrackColor = MyAppTheme.colors.overlay,
+                    checkedThumbColor = MyAppTheme.colors.blue,
+                    checkedTrackColor = MyAppTheme.colors.blue.copy(alpha = 0.3f)
+                ),
                 modifier = modifier
 
             )
-        }
+        },
+        colors = ListItemDefaults.colors(
+            containerColor = MyAppTheme.colors.primaryBack,
+            headlineColor = MyAppTheme.colors.primary,
+            trailingIconColor = MyAppTheme.colors.primary,
+
+        )
     )
 
 

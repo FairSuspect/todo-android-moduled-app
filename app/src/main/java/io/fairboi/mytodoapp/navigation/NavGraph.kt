@@ -56,6 +56,9 @@ internal fun NavGraph(
                     )
                 },
                 todoId = todoItemId,
+                onBack = {
+                    navController.popBackStack()
+                }
 
             )
         }

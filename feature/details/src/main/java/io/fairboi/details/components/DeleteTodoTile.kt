@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,16 +22,24 @@ import io.fairboi.ui.previews.ThemePreview
 fun DeleteTodoTile(
     onClick: () -> Unit, modifier: Modifier = Modifier
 ) {
-    val  context = LocalContext.current
+    val context = LocalContext.current
     val color = MyAppTheme.colors.red
     ListItem(
         modifier = modifier.clickable(
             onClick = onClick,
         ), leadingContent = {
-            Icon(Icons.Default.Delete, contentDescription =context.getString(R.string.delete_task), tint = color)
+            Icon(
+                Icons.Default.Delete,
+                contentDescription = context.getString(R.string.delete_task),
+                tint = color
+            )
         }, headlineContent = {
             Text(context.getString(R.string.delete), color = color)
-        })
+        },
+        colors = ListItemDefaults.colors(
+            containerColor = MyAppTheme.colors.primaryBack,
+        )
+    )
 }
 
 @DefaultPreview

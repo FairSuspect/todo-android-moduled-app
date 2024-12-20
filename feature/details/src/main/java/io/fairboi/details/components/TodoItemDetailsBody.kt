@@ -27,6 +27,11 @@ import androidx.compose.ui.unit.dp
 import io.fairboi.details.R
 import io.fairboi.domain.model.todo.TodoItem
 import io.fairboi.theme.custom.MyAppTheme
+import io.fairboi.ui.previews.DefaultPreview
+import io.fairboi.ui.previews.ItemPreviewTemplate
+import io.fairboi.ui.previews.ScreenPreviewTemplate
+import io.fairboi.ui.previews.ThemePreview
+import io.fairboi.ui.previews.TodoItemPreviewParameterProvider
 
 @Composable
 fun TodoItemDetailsBody(
@@ -129,22 +134,15 @@ fun TodoItemDetailsBody(
 }
 
 
-@Preview
+@DefaultPreview
+@ThemePreview
 @Composable
 private fun TodoItemDetailsBodyPreview(
-    @PreviewParameter(TodoItemDetailsProvider::class) todoItem: TodoItem
+    @PreviewParameter(TodoItemPreviewParameterProvider::class) todoItem: TodoItem
 ) {
-    Scaffold {
-
-        TodoItemDetailsBody(todoItem = todoItem, onEdit = {}, modifier = Modifier.padding(it))
+    ItemPreviewTemplate {
+        TodoItemDetailsBody(todoItem = todoItem, onEdit = {})
 
     }
 }
 
-class TodoItemDetailsProvider : PreviewParameterProvider<TodoItem> {
-    override val values: Sequence<TodoItem> = sequenceOf(
-        TodoItem.fromText("Buy a beer"),
-        TodoItem.blank()
-    )
-
-}
