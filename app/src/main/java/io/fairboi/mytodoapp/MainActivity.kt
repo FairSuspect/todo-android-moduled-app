@@ -11,7 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.navigation.compose.rememberNavController
 import io.fairboi.mytodoapp.di.AppComponent
 import io.fairboi.mytodoapp.navigation.NavGraph
-import io.fairboi.mytodoapp.ui.theme.MyTodoAppTheme
+import io.fairboi.theme.custom.MyTodoAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +46,7 @@ internal fun TodoApp(
 
 
      MyTodoAppTheme(
-       themeSettings = settings.theme
+       theme = settings.theme
     ) {
 
         NavGraph(

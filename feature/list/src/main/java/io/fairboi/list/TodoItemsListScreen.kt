@@ -2,18 +2,25 @@ package io.fairboi.list
 
 import android.Manifest
 import androidx.annotation.RequiresPermission
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import io.fairboi.domain.model.todo.TodoId
 import io.fairboi.list.components.TodoItemsListView
 import io.fairboi.list.components.TodosAppBar
+import io.fairboi.theme.custom.MyAppTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -21,6 +28,8 @@ import io.fairboi.list.components.TodosAppBar
 @Composable
 fun TodoItemsListScreen(
     viewModel: TodoItemsListViewModel,
+    toDetailsScreen: (TodoId?) -> Unit,
+
     modifier: Modifier = Modifier, toSettingsScreen: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -32,8 +41,22 @@ fun TodoItemsListScreen(
                 viewModel = viewModel,
                 toSettingsScreen = toSettingsScreen,
                 scrollState = scrollState,
+                modifier = Modifier.background(MyAppTheme.colors.primaryBack)
             )
-        }
+        },
+        floatingActionButton = {
+            LargeFloatingActionButton(
+                onClick = {
+                    toDetailsScreen(null)
+                },
+                containerColor = MyAppTheme.colors.blue,
+                contentColor = MyAppTheme.colors.white
+
+            ) {
+                Icon(Icons.Filled.Add, "Floating action button.")
+            }
+        },
+        containerColor = MyAppTheme.colors.primaryBack,
     ) { innerPadding ->
 
         when (uiState.listState) {
@@ -49,7 +72,7 @@ fun TodoItemsListScreen(
                 val items = (uiState.listState as TodoItemsUiState.ListState.Loaded).items
                 TodoItemsListView(
                     items = items,
-                    onItemClicked = { viewModel.onItemChecked(it.copy(done = !it.done)) },
+                    onItemClicked = { toDetailsScreen(it.id) },
                     onItemChecked = { viewModel.onItemChecked(it) },
                     onItemCreated = { viewModel.onTextTodoAdded(it) },
                     onItemRemoved = { viewModel.onItemRemoved(it) },
@@ -60,3 +83,5 @@ fun TodoItemsListScreen(
         }
     }
 }
+
+

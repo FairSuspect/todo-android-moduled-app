@@ -7,14 +7,14 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.outlined.Visibility
-import androidx.compose.material.icons.outlined.VisibilityOff
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import io.fairboi.list.TodoItemsListViewModel
 import io.fairboi.list.TodoItemsUiState
+import io.fairboi.theme.custom.MyAppTheme
 
 private const val TAG = "TodosAppBar"
 
@@ -43,7 +44,7 @@ fun TodosAppBar(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val filter = uiState.filterState
-    val theme = MaterialTheme
+    val theme = MyAppTheme
     val scrollOffset = remember {
         derivedStateOf {
             val itemHeight = 150 // Assuming each item has a height of 150dp
@@ -67,7 +68,11 @@ fun TodosAppBar(
             .padding(
                 start = startPadding,
                 top = topPadding,
-            ),
+            )
+            ,
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = theme.colors.primaryBack
+        ),
 
 
         title = {
@@ -75,14 +80,15 @@ fun TodosAppBar(
                 Text(
                     "Todo Items",
                     fontSize = textSize,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    color = theme.colors.primary
                 )
                 if (uiState.listState is TodoItemsUiState.ListState.Loaded && effectiveRatio > 0f)
                     Text(
                         "Done – ${(uiState.listState as TodoItemsUiState.ListState.Loaded).completedCount}",
-                        style = theme.typography.labelMedium,
+                        style = theme.typography.body,
                         //opacity 1f -> 0f
-                        color = theme.colorScheme.onSurface.copy(alpha = effectiveRatio)
+                        color = theme.colors.tertiary.copy(alpha = effectiveRatio)
                     )
             }
         },
@@ -98,14 +104,19 @@ fun TodosAppBar(
                 )
             }) {
                 Icon(
-                    if (filter == TodoItemsUiState.FilterState.ALL) Icons.Outlined.Visibility else Icons.Outlined.VisibilityOff,
-                    contentDescription = "Toggle visibility"
+                    if (filter == TodoItemsUiState.FilterState.ALL) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
+                    contentDescription = "Toggle visibility",
+                    tint = theme.colors.blue
                 )
             }
 
 
             IconButton(onClick = toSettingsScreen) {
-                Icon(Icons.Filled.Settings, contentDescription = "Settings")
+                Icon(
+                    Icons.Filled.Settings,
+                    contentDescription = "Settings",
+                    tint = MyAppTheme.colors.primary
+                )
             }
         }
     )

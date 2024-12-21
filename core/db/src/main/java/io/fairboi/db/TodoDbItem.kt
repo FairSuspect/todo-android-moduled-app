@@ -17,7 +17,7 @@ data class TodoDbItem
     // Используется LocalDateTime, так как это дата и время для пользователя
     // Достаточно точности до минут
     val deadline: LocalDateTime?,
-    val importance: TodoImportance = TodoImportance.LOW,
+    val importance: TodoImportance = TodoImportance.NO,
     val done: Boolean,
 
     @ColumnInfo("created_at")

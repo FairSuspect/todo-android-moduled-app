@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="todo_item_text_label">Что нужно сделать</string>
+    <string name="importance_label">Приоритет</string>
+    <string name="importance_low">Низкий</string>
+    <string name="importance_basic">Обычный</string>
+    <string name="importance_high">Высокий</string>
+    <string name="deadline">Сделать до</string>
+    <string name="delete">Удалить</string>
+    <string name="delete_task">Удалить задачу</string>
+</resources>

@@ -1,6 +1,8 @@
 package io.fairboi.mytodoapp.navigation
 
 import androidx.navigation.NamedNavArgument
+import androidx.navigation.navArgument
+import io.fairboi.domain.model.todo.TodoId
 
 
 /**
@@ -14,7 +16,13 @@ internal sealed class Screen(
 
     data object Settings : Screen("settings")
 
-    data object TodoList : Screen("list")
+    data object TodoList : Screen("todos")
+
+    data object TodoDetails :
+        Screen("todos/{todoId}", listOf(navArgument("todoId") { nullable = true })) {
+        fun getRoute(todoId: TodoId?) = "todos/$todoId"
+
+    }
 
 
 }

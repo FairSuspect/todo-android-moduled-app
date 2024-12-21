@@ -62,7 +62,8 @@ fun DismissibleTotoItemTile(
         TodoItemTile(
             todoItem = todoItem,
             onClick = onClick,
-            onCheckedChange = onCheckedChange
+            onCheckedChange = onCheckedChange,
+            modifier = modifier,
         )
     }
 }
