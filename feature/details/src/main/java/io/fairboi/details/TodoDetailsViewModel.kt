@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-
+const val TAG = "TodoDetailsViewModel"
 class TodoDetailsViewModel @AssistedInject
 constructor(
     @Assisted
@@ -27,9 +27,8 @@ constructor(
         _uiState.update { TodoDetailsUiState.Error(exception.message ?: "Unknown error") }
     }
 
+
     init {
-
-
         getTodoItem(todoId)
 
     }
@@ -70,23 +69,29 @@ constructor(
     fun edit(todoItem: TodoItem) {
         viewModelScope.launch {
             _uiState.update {
-                TodoDetailsUiState.Loaded(
-                    todoItem,
-                    todoEditMode = TodoDetailsUiState.TodoEditMode.EDIT
-                )
+                if(it is TodoDetailsUiState.Loaded) {
+                   return@update TodoDetailsUiState.Loaded(todoItem, it.todoEditMode)
+                }
+                return@update it
+
             }
         }
     }
 
     fun save(todoItem: TodoItem) {
         viewModelScope.launch {
-            _uiState.update {
-                TodoDetailsUiState.Loading
-            }
+
+            val isNewTask =
+                uiState.value is TodoDetailsUiState.Loaded && (uiState.value as TodoDetailsUiState.Loaded).todoEditMode == TodoDetailsUiState.TodoEditMode.NEW
+
             try {
-                todoRepository.updateItem(todoItem)
+                if (isNewTask) {
+                    todoRepository.addItem(todoItem)
+                } else {
+                    todoRepository.updateItem(todoItem)
+                }
             } catch (e: Exception) {
-                Log.e("TodoDetailsViewModel", "Error saving todo item", e)
+                Log.e(TAG, "Error saving todo item", e)
                 _uiState.update {
                     TodoDetailsUiState.Loaded(todoItem)
                 }
@@ -103,7 +108,7 @@ constructor(
             try {
                 todoRepository.deleteItemById(todoItem.id)
             } catch (e: Exception) {
-                Log.e("TodoDetailsViewModel", "Error deleting todo item", e)
+                Log.e(TAG, "Error deleting todo item", e)
                 _uiState.update {
                     TodoDetailsUiState.Loaded(todoItem)
                 }

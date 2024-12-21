@@ -5,8 +5,12 @@ import androidx.annotation.RequiresPermission
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,8 +44,20 @@ fun TodoItemsListScreen(
                 modifier = Modifier.background(MyAppTheme.colors.primaryBack)
             )
         },
+        floatingActionButton = {
+            LargeFloatingActionButton(
+                onClick = {
+                    toDetailsScreen(null)
+                },
+                containerColor = MyAppTheme.colors.blue,
+                contentColor = MyAppTheme.colors.white
+
+            ) {
+                Icon(Icons.Filled.Add, "Floating action button.")
+            }
+        },
         containerColor = MyAppTheme.colors.primaryBack,
-        ) { innerPadding ->
+    ) { innerPadding ->
 
         when (uiState.listState) {
             is TodoItemsUiState.ListState.Error -> {
