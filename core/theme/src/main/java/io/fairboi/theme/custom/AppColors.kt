@@ -96,6 +96,31 @@ data class AppColors(
             white = White,
             isDark = true,
         )
+
+        fun updateColorsFrom(other: AppColors) {
+            AppColors(
+
+
+            primary = other.primary,
+            secondary = other.secondary,
+            tertiary = other.tertiary,
+            disable = other.disable,
+            separator = other.separator,
+            overlay = other.overlay,
+            primaryBack = other.primaryBack,
+            secondaryBack = other.secondaryBack,
+            elevated = other.elevated,
+            red = other.red,
+            green = other.green,
+            blue = other.blue,
+            gray = other.gray,
+            grayLight = other.grayLight,
+            white = other.white,
+            black = other.black,
+            appBar = other.appBar,
+            isDark = other.isDark
+            )
+        }
     }
 }
 

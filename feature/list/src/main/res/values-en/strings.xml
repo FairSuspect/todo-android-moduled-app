@@ -2,4 +2,5 @@
 <resources>
     <string name="delete">Delete</string>
     <string name="mark_done">Mark done</string>
+    <string name="my_tasks">My tasks</string>
 </resources>

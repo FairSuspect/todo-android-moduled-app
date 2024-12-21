@@ -2,6 +2,7 @@ package io.fairboi.mytodoapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -44,7 +45,7 @@ internal fun TodoApp(
     val settings by
         appComponent.settingsRepository().getSettings().collectAsState()
 
-
+    Log.d("TodoApp", "settings: $settings")
      MyTodoAppTheme(
        theme = settings.theme
     ) {

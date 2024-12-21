@@ -1,11 +1,13 @@
 package io.fairboi.theme.custom
 
+import android.util.Log
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
 import io.fairboi.domain.model.ThemeSettings
+import io.fairboi.theme.custom.AppColors.Companion.updateColorsFrom
 import io.fairboi.theme.material.MyTodoAppMaterialTheme
 
 object MyAppTheme {
@@ -39,8 +41,8 @@ fun MyTodoAppTheme (
     }
     val appColors =
         colors ?: if (isDarkTheme) AppColors.dark else AppColors.light
-    val rememberedColors = remember { appColors }
-
+    val rememberedColors = remember { appColors }.apply { updateColorsFrom(appColors) }
+    Log.d("MyTodoAppTheme", "isDarkTheme: $isDarkTheme (from $theme)")
     CompositionLocalProvider(
         LocalColors provides rememberedColors,
         LocalDimensions provides dimensions,

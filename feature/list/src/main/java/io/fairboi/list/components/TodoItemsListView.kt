@@ -1,6 +1,7 @@
 package io.fairboi.list.components
 
 import android.Manifest
+import android.util.Log
 import androidx.annotation.RequiresPermission
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
@@ -34,6 +35,8 @@ fun TodoItemsListView(
     ) {
     val shape = RoundedCornerShape(MyAppTheme.dimensions.cardCornersRadius)
     val backgroundColor = MyAppTheme.colors.secondaryBack
+    Log.d("TodoItemsListView", "recompose with dark theme: ${MyAppTheme.colors.isDark}")
+
 // Карточка с тайлами текстом чекбоксов, закруглённая по углам
     LazyColumn(
         modifier = modifier
@@ -74,7 +77,6 @@ fun TodoItemsListView(
 private fun TodoItemsListViewPreview(
 
 ) {
-
 
     ScreenPreviewTemplate {
         TodoItemsListView(

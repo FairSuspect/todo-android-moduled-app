@@ -9,6 +9,7 @@
       <module name="MyTodoApp.core.utils.test" target="11" />
       <module name="MyTodoApp.domain.test" target="11" />
       <module name="MyTodoApp.feature.details.test" target="11" />
+      <module name="MyTodoApp.weartodo" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>

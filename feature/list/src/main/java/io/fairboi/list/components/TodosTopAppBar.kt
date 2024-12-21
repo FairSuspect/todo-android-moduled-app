@@ -22,12 +22,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
+import io.fairboi.list.R
 import io.fairboi.list.TodoItemsListViewModel
 import io.fairboi.list.TodoItemsUiState
 import io.fairboi.theme.custom.MyAppTheme
@@ -78,7 +80,7 @@ fun TodosAppBar(
         title = {
             Column {
                 Text(
-                    "Todo Items",
+                    stringResource(R.string.my_tasks),
                     fontSize = textSize,
                     overflow = TextOverflow.Ellipsis,
                     color = theme.colors.primary

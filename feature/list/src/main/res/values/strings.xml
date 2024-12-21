@@ -2,4 +2,5 @@
 <resources>
     <string name="delete">Удалить</string>
     <string name="mark_done">Отметить готовым</string>
+    <string name="my_tasks">Мои дела</string>
 </resources>
