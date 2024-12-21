@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -21,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.dp
 import io.fairboi.details.components.DetailedTopBar
 import io.fairboi.details.components.TodoItemDetailsBody
 import io.fairboi.domain.model.todo.TodoId
@@ -81,20 +83,22 @@ internal fun TodoDetailsContent(
 
     Scaffold(
         topBar = {
-            DetailedTopBar(
-                onBack = onBack,
-                onSave = {
-                    if (uiState is TodoDetailsUiState.Loaded) {
-                        onSave(uiState.item)
-                        onBack()
-                        // Show success snackbar
-                        val message = "Task saved"
-                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            Surface(shadowElevation = 4.dp) {
+                DetailedTopBar(
+                    onBack = onBack,
+                    onSave = {
+                        if (uiState is TodoDetailsUiState.Loaded) {
+                            onSave(uiState.item)
+                            onBack()
+                            // Show success snackbar
+                            val message = "Task saved"
+                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
-                    }
-                },
-                modifier = modifier
-            )
+                        }
+                    },
+                    modifier = modifier
+                )
+            }
         }
     ) { innerPadding ->
 

@@ -61,7 +61,7 @@ fun TodoDetailsTextField(
         modifier = modifier
             .fillMaxWidth()
 
-            .shadow(8.dp),
+            .shadow(2.dp),
         placeholder = {
             Text(
                 stringResource(R.string.todo_item_text_label),
