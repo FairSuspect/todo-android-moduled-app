@@ -11,7 +11,7 @@ data class TodoItem(
     val id :TodoId,
     val text: String,
     val deadline: LocalDateTime? = null,
-    val importance: TodoImportance = TodoImportance.LOW,
+    val importance: TodoImportance = TodoImportance.NO,
     val done: Boolean = false,
     val createdAt: Instant,
     val changedAt: Instant? = null,

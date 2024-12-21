@@ -101,6 +101,13 @@ fun TodoItemDetailsBody(
                 )
                 TodoImportanceTile(
                     importance = todoItem.importance,
+                    onImportanceChanged = {
+                        onEdit(
+                            todoItem.copy(
+                                importance = it
+                            )
+                        )
+                    }
                 )
                 HorizontalDivider(
                     modifier = Modifier.padding(horizontal = horizontalPadding)

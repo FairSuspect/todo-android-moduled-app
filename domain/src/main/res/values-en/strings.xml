@@ -3,4 +3,7 @@
     <string name="light_theme">Light theme</string>
     <string name="dark_theme">Dark theme</string>
     <string name="system_theme">System</string>
+    <string name="todo_importance_no">No</string>
+    <string name="todo_importance_low">Low</string>
+    <string name="todo_importance_high">High</string>
 </resources>
