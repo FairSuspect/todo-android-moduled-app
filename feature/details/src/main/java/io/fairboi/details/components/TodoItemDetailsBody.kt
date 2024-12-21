@@ -41,60 +41,24 @@ fun TodoItemDetailsBody(
     onDelete: () -> Unit = {},
 ) {
 
-    var text by remember { mutableStateOf(todoItem.text) }
     val horizontalPadding = 16.dp
     LazyColumn(
         modifier = modifier
     ) {
         item {
             Column {
-                val containerColor = MyAppTheme.colors.secondaryBack
-                val textColor = MyAppTheme.colors.primary
-                val placeFolderColor = MyAppTheme.colors.tertiary
-                val cursorColor = MyAppTheme.colors.primary
-                val indicatorColor = Color.Transparent
 
-                TextField(
 
-                    value = text,
-                    onValueChange = {
+                TodoDetailsTextField(
+                    onTextChange = {
                         onEdit(
                             todoItem.copy(
                                 text = it
                             )
                         )
-                        text = it
                     },
-
-                    maxLines = 10,
-                    minLines = 5,
-                    shape = RoundedCornerShape(6.dp),
-                    colors = TextFieldDefaults.colors(
-                        focusedIndicatorColor = indicatorColor,
-                        unfocusedIndicatorColor = indicatorColor,
-                        disabledIndicatorColor = indicatorColor,
-                        focusedContainerColor = containerColor,
-                        unfocusedContainerColor = containerColor,
-                        disabledContainerColor = containerColor,
-                        focusedTextColor = textColor,
-                        unfocusedTextColor = textColor,
-                        disabledTextColor = textColor,
-                        focusedPlaceholderColor = placeFolderColor,
-                        disabledPlaceholderColor = placeFolderColor,
-                        unfocusedPlaceholderColor = placeFolderColor,
-                        cursorColor = cursorColor
-                    ),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontalPadding)
-                        .shadow(8.dp),
-                    placeholder = {
-                        Text(
-                            stringResource(R.string.todo_item_text_label),
-                            style = MyAppTheme.typography.body
-
-                            )
-                    },
+                    initialText = todoItem.text,
+                    modifier = Modifier.padding(horizontal = horizontalPadding)
                 )
                 Box(
                     modifier = Modifier.padding(top = 12.dp)
