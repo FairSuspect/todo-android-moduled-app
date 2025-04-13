@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.fairboi.domain.model.todo.TodoId
+import io.fairboi.domain.model.todo.TodoImportance
 import io.fairboi.domain.model.todo.TodoItem
 import io.fairboi.domain.repositories.TodoItemsRepository
 import jakarta.inject.Inject
@@ -79,7 +80,13 @@ class TodoItemsListViewModel @Inject constructor(
         viewModelScope.launch {
             todoRepository.updateItem(todoItem)
         }
+    }
 
+    internal  fun onItemImportanceChanged(todoItem: TodoItem, importance: TodoImportance) {
+        val newTodoItem = todoItem.copy(importance = importance)
+        viewModelScope.launch {
+            todoRepository.updateItem(newTodoItem)
+        }
     }
 
     internal fun onItemRemoved(itemId: TodoId) {

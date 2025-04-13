@@ -30,6 +30,7 @@ fun TodoItemsListView(
     onItemCreated: (String) -> Unit,
     onItemRemoved: (itemId: TodoId) -> Unit,
     modifier: Modifier = Modifier,
+    onImportanceClick: (TodoItem) -> Unit = {},
     scrollState: LazyListState = rememberLazyListState(),
 
     ) {
@@ -54,6 +55,7 @@ fun TodoItemsListView(
                 todoItem = item,
                 onClick = { onItemClicked(item) },
                 onCheckedChange = { checked -> onItemChecked(item.copy(done = checked)) },
+                onImportanceClick = { onImportanceClick(item) },
                 modifier = Modifier.background(backgroundColor)
 
             )

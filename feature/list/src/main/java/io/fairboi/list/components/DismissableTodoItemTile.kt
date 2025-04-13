@@ -27,6 +27,7 @@ fun DismissibleTotoItemTile(
     todoItem: TodoItem,
     onClick: () -> Unit = {},
     onCheckedChange: (Boolean) -> Unit = {},
+    onImportanceClick: () -> Unit = {},
 ) {
     val context = LocalContext.current
 
@@ -64,6 +65,7 @@ fun DismissibleTotoItemTile(
             onClick = onClick,
             onCheckedChange = onCheckedChange,
             modifier = modifier,
+            onImportanceClick = onImportanceClick
         )
     }
 }

@@ -32,6 +32,7 @@ fun TodoItemTile(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
     onCheckedChange: (Boolean) -> Unit = {},
+    onImportanceClick: () -> Unit = {},
 ) {
     val theme = MyAppTheme
 
@@ -47,7 +48,13 @@ fun TodoItemTile(
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                ImportanceIcon(importance = todoItem.importance, modifier = Modifier.padding(end = 3.dp))
+                ImportanceIcon(
+                    importance = todoItem.importance,
+                    modifier = Modifier
+                        .padding(end = 3.dp)
+                        .clickable(
+                            onClick = onImportanceClick,
+                        ))
 
                 Text(
                     text = todoItem.text,
@@ -60,7 +67,7 @@ fun TodoItemTile(
             MyTodoCheckbox(
                 todoItem = todoItem,
                 onCheckedChange = onCheckedChange,
-                )
+            )
         },
         supportingContent = if (todoItem.deadline != null) {
             {
@@ -81,6 +88,7 @@ fun TodoItemTile(
 
     )
 }
+
 @Composable
 fun ImportanceIcon(importance: TodoImportance, modifier: Modifier = Modifier) {
     val drawable = when (importance) {

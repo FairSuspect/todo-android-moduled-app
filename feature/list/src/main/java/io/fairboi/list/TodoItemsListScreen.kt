@@ -16,8 +16,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import io.fairboi.domain.model.todo.TodoId
+import io.fairboi.domain.model.todo.TodoItem
+import io.fairboi.list.components.ImportanceBottomSheet
 import io.fairboi.list.components.TodoItemsListView
 import io.fairboi.list.components.TodosAppBar
 import io.fairboi.theme.custom.MyAppTheme
@@ -34,6 +40,7 @@ fun TodoItemsListScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val scrollState = rememberLazyListState()
+    var showImportanceBottomSheet by remember { mutableStateOf<TodoItem?>(null) }
 
     Scaffold(
         topBar = {
@@ -70,18 +77,35 @@ fun TodoItemsListScreen(
 
             is TodoItemsUiState.ListState.Loaded -> {
                 val items = (uiState.listState as TodoItemsUiState.ListState.Loaded).items
+
                 TodoItemsListView(
                     items = items,
                     onItemClicked = { toDetailsScreen(it.id) },
                     onItemChecked = { viewModel.onItemChecked(it) },
                     onItemCreated = { viewModel.onTextTodoAdded(it) },
                     onItemRemoved = { viewModel.onItemRemoved(it) },
+                    onImportanceClick = {
+                        showImportanceBottomSheet = it
+                    },
                     scrollState = scrollState,
                     modifier = modifier.padding(innerPadding)
                 )
+                showImportanceBottomSheet?.let { todoItem ->
+                    ImportanceBottomSheet(
+                        modifier = modifier.padding(16.dp),
+                        initialImportance = todoItem.importance,
+                        onDismissed = {
+
+                            showImportanceBottomSheet = null
+                            if (it == null) return@ImportanceBottomSheet
+                            viewModel.onItemImportanceChanged(todoItem, it)
+                        }
+                    )
+                }
             }
         }
     }
+
 }
 
 

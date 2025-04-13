@@ -2,6 +2,7 @@ package io.fairboi.theme.custom
 
 import android.util.Log
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ButtonColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
@@ -25,6 +26,16 @@ object MyAppTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalDimensions.current
+
+    val filledButtonColors: ButtonColors
+        @Composable
+        @ReadOnlyComposable
+        get() = ButtonColors(
+            containerColor = colors.blue,
+            contentColor = colors.white,
+            disabledContainerColor =colors.disable,
+            disabledContentColor =   colors.white
+        )
 }
 @Composable
 fun MyTodoAppTheme (
