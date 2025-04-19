@@ -1,6 +1,6 @@
-package com.example.network.di.modules
+package io.fairboi.network.di.modules
 
-import com.example.network.mainHttpClient
+import io.fairboi.network.mainHttpClient
 import dagger.Module
 import dagger.Provides
 import io.ktor.client.HttpClient

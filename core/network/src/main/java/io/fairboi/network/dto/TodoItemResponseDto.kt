@@ -1,4 +1,4 @@
-package com.example.network.dto
+package io.fairboi.network.dto
 
 import kotlinx.serialization.Serializable
 

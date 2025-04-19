@@ -21,4 +21,6 @@ interface TodoLocalDataSource {
 
     suspend fun addAll(items: List<TodoDbItem>)
 
+    suspend fun refreshItems(items: List<TodoDbItem>)
+
 }

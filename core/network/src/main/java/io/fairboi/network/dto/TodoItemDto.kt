@@ -1,4 +1,4 @@
-package com.example.network.dto
+package io.fairboi.network.dto
 
 import io.fairboi.domain.model.todo.TodoId
 import io.fairboi.domain.model.todo.TodoImportance
@@ -42,6 +42,10 @@ fun TodoItem.toDto() = TodoItemDto(
     done = done,
     createdAt = createdAt.toEpochMilli(),
     changedAt = changedAt?.toEpochMilli(),
+)
+
+fun TodoItem.toRequestDto() = TodoItemRequestDto(
+    item = toDto()
 )
 
 

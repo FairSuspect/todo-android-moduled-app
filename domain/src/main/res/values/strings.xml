@@ -6,4 +6,6 @@
     <string name="todo_importance_no">Нет</string>
     <string name="todo_importance_low">Низкий</string>
     <string name="todo_importance_high">Высокий</string>
+    <string name="network_error">Нет соединения</string>
+    <string name="unknown_error">Произошла неизвестная ошибка</string>
 </resources>

@@ -1,4 +1,7 @@
+import gradle.kotlin.dsl.accessors._8e8a6dd48b2094ffcd3758431423791d.annotationProcessor
+import gradle.kotlin.dsl.accessors._8e8a6dd48b2094ffcd3758431423791d.debugImplementation
 import gradle.kotlin.dsl.accessors._8e8a6dd48b2094ffcd3758431423791d.implementation
+import gradle.kotlin.dsl.accessors._8e8a6dd48b2094ffcd3758431423791d.ksp
 import gradle.kotlin.dsl.accessors._8e8a6dd48b2094ffcd3758431423791d.testImplementation
 
 plugins {
@@ -22,6 +25,8 @@ tasks.withType<Test> {
 }
 
 dependencies {
+
+
     // Dagger 2
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
@@ -44,6 +49,7 @@ dependencies {
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)
 
+    implementation(libs.ktor.client.content.negotiation)
 
 
 

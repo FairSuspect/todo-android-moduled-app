@@ -1,8 +1,8 @@
-package com.example.network.di
+package io.fairboi.network.di
 
-import com.example.network.ItemsApiClientImpl
-import com.example.network.di.modules.ApiClientModule
-import com.example.network.di.modules.ApiClientScope
+import io.fairboi.network.ItemsApiClientImpl
+import io.fairboi.network.di.modules.ApiClientModule
+import io.fairboi.network.di.modules.ApiClientScope
 import dagger.Component
 
 @ApiClientScope

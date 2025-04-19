@@ -13,6 +13,7 @@ import io.fairboi.mytodoapp.di.modules.DataModule
 import io.fairboi.mytodoapp.di.modules.ListFeatureModule
 import io.fairboi.mytodoapp.di.modules.SettingsFeatureModule
 import io.fairboi.mytodoapp.di.modules.UtilsModule
+import io.fairboi.network.di.modules.ApiClientScope
 import io.fairboi.settings.di.SettingsFeatureDependencies
 import io.fairboi.utils.di.UtilsDependencies
 import io.fairboi.utils.di.modules.AppSettingsScope
@@ -33,6 +34,7 @@ annotation class AppScope
 @AppSettingsScope
 @AppScope
 @DataScope
+@ApiClientScope
 internal interface AppComponent :
     SettingsFeatureDependencies,
     ListFeatureDependencies,

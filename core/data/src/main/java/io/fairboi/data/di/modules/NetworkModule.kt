@@ -1,7 +1,7 @@
 package io.fairboi.data.di.modules
 
-import com.example.network.ItemsApiClient
-import com.example.network.di.NetworkFactory
+import io.fairboi.network.ItemsApiClient
+import io.fairboi.network.di.NetworkFactory
 import dagger.Module
 import dagger.Provides
 import io.fairboi.data.di.DataComponent
@@ -14,5 +14,6 @@ internal interface NetworkModule {
 
         @Provides
         fun networkClient(factory: NetworkFactory): ItemsApiClient = factory.createApiClient()
+
     }
 }

@@ -3,6 +3,7 @@ package io.fairboi.db
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import io.fairboi.domain.model.todo.TodoId
 import kotlinx.coroutines.flow.Flow
@@ -34,5 +35,12 @@ interface TodoItemDao : TodoLocalDataSource {
 
     @Insert
     override suspend fun addAll(items: List<TodoDbItem>)
+
+    @Transaction
+    override suspend fun refreshItems(items: List<TodoDbItem>){
+        deleteAll()
+        addAll(items)
+    }
+
 
 }
