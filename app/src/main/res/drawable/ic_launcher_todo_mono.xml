@@ -1,17 +1,11 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp"
-    android:height="108dp"
-    android:viewportWidth="256"
-    android:viewportHeight="256">
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="108dp" android:viewportHeight="256" android:viewportWidth="256" android:width="108dp">
+
   <group android:scaleX="0.6111111"
       android:scaleY="0.6111111"
       android:translateX="49.77778"
       android:translateY="49.77778">
     <path
-        android:pathData="M0,0h256v256h-256z"
-        android:fillColor="#9DF2E8"/>
-    <path
         android:pathData="M103.44,183.88C102.11,183.88 100.86,183.67 99.69,183.25C98.52,182.84 97.44,182.13 96.44,181.13L53.44,138.13C51.6,136.29 50.72,133.92 50.8,130.99C50.89,128.08 51.85,125.71 53.69,123.88C55.52,122.04 57.85,121.12 60.69,121.12C63.52,121.12 65.85,122.04 67.69,123.88L103.44,159.63L188.2,74.87C190.03,73.04 192.41,72.12 195.33,72.12C198.24,72.12 200.62,73.04 202.45,74.87C204.28,76.7 205.2,79.08 205.2,81.99C205.2,84.91 204.28,87.29 202.45,89.12L110.44,181.13C109.44,182.13 108.36,182.84 107.19,183.25C106.02,183.67 104.77,183.88 103.44,183.88Z"
-        android:fillColor="#00504A"/>
+        android:fillColor="#000000"/>
   </group>
 </vector>
