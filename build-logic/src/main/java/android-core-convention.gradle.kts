@@ -1,4 +1,4 @@
-import gradle.kotlin.dsl.accessors._8e8a6dd48b2094ffcd3758431423791d.androidTestImplementation
+import gradle.kotlin.dsl.accessors._8e8a6dd48b2094ffcd3758431423791d.implementation
 import gradle.kotlin.dsl.accessors._8e8a6dd48b2094ffcd3758431423791d.testImplementation
 
 plugins {
@@ -40,6 +40,9 @@ dependencies {
 
     // Ktor
     implementation(libs.ktor.serialization.kotlinx.json)
+
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
 
 
 

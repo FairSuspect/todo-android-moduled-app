@@ -5,11 +5,9 @@ plugins {
 }
 
 android {
-    namespace = "io.fairboi.mytodoapp.data"
+    namespace = "io.fairboi.mytodoapp.utils"
 }
 
 dependencies {
     api(project(":domain"))
-    api(project(":core:db"))
-    api(project(":core:network"))
 }

@@ -1,7 +1,7 @@
 import org.gradle.api.JavaVersion
 
 object AndroidConst {
-    const val NAMESPACE = "ru.gribbirg.todoapp"
+    const val NAMESPACE = "io.fairboi.todoapp"
     const val COMPILE_SDK = 35
     const val TARGET_SDK = 35
     const val MIN_SDK = 26

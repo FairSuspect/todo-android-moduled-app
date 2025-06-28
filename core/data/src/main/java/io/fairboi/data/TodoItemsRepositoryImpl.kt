@@ -1,5 +1,6 @@
 package io.fairboi.data
 
+import com.example.network.ItemsApiClient
 import io.fairboi.data.di.DataScope
 import io.fairboi.data.di.modules.SingleThreadBackgroundDispatcher
 import io.fairboi.db.TodoLocalDataSource
@@ -18,6 +19,7 @@ import javax.inject.Inject
 @DataScope
 class TodoItemsRepositoryImpl @Inject constructor(
     private val localDataSource: TodoLocalDataSource,
+    private val apiClient: ItemsApiClient,
 
     @SingleThreadBackgroundDispatcher private val dispatcher: CoroutineDispatcher
 ) : TodoItemsRepository {
